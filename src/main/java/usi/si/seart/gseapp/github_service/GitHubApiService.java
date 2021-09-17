@@ -27,7 +27,8 @@ public class GitHubApiService {
     static Logger logger = LoggerFactory.getLogger(GitHubApiService.class);
 
     OkHttpClient client;
-    final static int MIN_STARS = 10;
+    // final static int MIN_STARS = 10;
+    final static int MIN_STARS = 2;
 
     final static long retrySleepPeriod_ms = 60000L;
     final static int maxRetryCount = 3;

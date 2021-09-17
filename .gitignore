@@ -1,3 +1,5 @@
+initialize_tokens_languages.sql
+
 /target/
 !.mvn/wrapper/maven-wrapper.jar
 .DS_Store

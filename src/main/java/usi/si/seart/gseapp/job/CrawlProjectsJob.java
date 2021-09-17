@@ -45,7 +45,7 @@ public class CrawlProjectsJob {
     @NonFinal
     // Temporary. Because I'm keep restarting server, but I don't care about
     // very new Java updates, but finishing all language at least once.
-    static String startingLanguage = "PHP";
+    static String startingLanguage = "Python";
 
 
     ;
@@ -242,7 +242,7 @@ public class CrawlProjectsJob {
                     repo = gitRepoService.createOrUpdateRepo(repo);
                     if (repo != null) {
                         logger.info("\tBasic information saved (repo Table).");
-                        retrieveRepoLabels(repo);
+                        // retrieveRepoLabels(repo);
                         retrieveRepoLanguages(repo);
                     }
                 } else {
