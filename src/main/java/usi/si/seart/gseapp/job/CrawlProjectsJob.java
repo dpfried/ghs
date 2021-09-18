@@ -282,8 +282,11 @@ public class CrawlProjectsJob {
         gitRepoBuilder.isArchived(repoJson.get("archived").getAsBoolean());
         boolean has_issues = repoJson.get("has_issues").getAsBoolean();
         //gitRepoBuilder.openIssues(repoJson.get("open_issues").getAsLong());  // open_issues in the response refers to sum of "issues" and "pull requests"
+        //
+        gitRepoBuilder.hasCrawledMeta(false);
 
-
+        /*
+        gitRepoBuilder.hasCrawledMeta(true);
         Long numberOfCommits = gitHubApiService.fetchNumberOfCommits(repoFullName);
         Long numberOfBranches = gitHubApiService.fetchNumberOfBranches(repoFullName);
         Long numberOfReleases = gitHubApiService.fetchNumberOfReleases(repoFullName);
@@ -306,6 +309,7 @@ public class CrawlProjectsJob {
         gitRepoBuilder.openPullRequests(numberOfOpenPulls);
         gitRepoBuilder.lastCommit(lastCommitDate);
         gitRepoBuilder.lastCommitSHA(lastCommitSHA);
+        */
 
         return gitRepoBuilder.build();
     }

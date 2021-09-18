@@ -120,6 +120,7 @@ CREATE TABLE `repo` (
   `has_wiki` bit(1) DEFAULT NULL,
   `archived` bit(1) DEFAULT NULL,
   `crawled` timestamp NULL DEFAULT NULL,
+  `has_crawled_meta` bit(1) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `unique_repo_name` (`name`),
   KEY `id_index` (`id`),

@@ -225,9 +225,9 @@ public class GitRepoServiceImpl implements GitRepoService {
     @Override
     public GitRepo createOrUpdateRepo(GitRepo repo){
 
-        if(repo.getWatchers()==null || repo.getCommits() == null || repo.getBranches() == null ||
+        if(repo.getHasCrawledMeta() && (repo.getWatchers()==null || repo.getCommits() == null || repo.getBranches() == null ||
                 repo.getReleases() == null || repo.getContributors() == null  ||
-                repo.getLastCommit() == null || repo.getLastCommitSHA()==null)
+                repo.getLastCommit() == null || repo.getLastCommitSHA()==null))
         {
             logger.error("*** REFUSING to store repo data due to incompleteness: {}", repo.getName());
             return null;

@@ -101,6 +101,9 @@ public class GitRepo {
     @Column(name = "crawled")
     Date crawled;
 
+    @Column(name = "has_crawled_meta")
+    Boolean hasCrawledMeta;
+
 //    @Builder.Default
 //    @OneToMany(mappedBy="repo", cascade=CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 //    Set<GitRepoLabel> labels = new HashSet<>();
