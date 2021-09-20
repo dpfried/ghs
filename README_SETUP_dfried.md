@@ -48,6 +48,10 @@ sudo service mysql start
 ### Step 2/5: Create Database: `gse`
 
 Create the database for the project by running:
+```
+sudo mysql
+```
+
 ``` mysql
 CREATE DATABASE gse CHARACTER SET utf8 COLLATE utf8_bin;
 ```
