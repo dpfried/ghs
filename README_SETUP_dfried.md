@@ -19,9 +19,11 @@ Install JDK:
 
 Install mysql:
 
-```sudo apt install mysql-server
+```
+sudo apt install mysql-server
 sudo mysql_secure_installation
-sudo service mysql start```
+sudo service mysql start
+```
 
 
 ## 1. Setup MySQL
