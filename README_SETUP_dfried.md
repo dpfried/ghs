@@ -40,6 +40,11 @@ group_concat_max_len=10000
 
 Be sure to restart your MySQL service for the changes to take effect!
 
+```
+sudo service mysql stop
+sudo service mysql start
+```
+
 ### Step 2/5: Create Database: `gse`
 
 Create the database for the project by running:
