@@ -104,10 +104,16 @@ mysql -u gseadmin -pLugano2020 gse < initialize_tokens_languages.sql
     ```shell
     mvn spring-boot:run
     ```
-3. And to override the value of an existing parameter, run:
+If port 8080 is already in use, you will get an error about tomcat being able to startup. You can change the port by running (e.g. to change to 8081):
     ```shell
-    mvn spring-boot:run -Dspring-boot.run.arguments=--arg.one.name=argvalue,--arg.two.name=1
+    mvn spring-boot:run -Dspring-boot.run.arguments=--server.port=8081
     ```
+3. Or, to run with overridden start and end dates (e.g. 2020-01-01 -- 2020-12-31):  
+    ```shell
+    mvn spring-boot:run -Dspring-boot.run.arguments=--app.crawl.startdate_override=true,--app.crawl.startdate_override_value=2020-01-01,--app.crawl.enddate_override=true,--app.crawl.enddate_override_value=2020-12-31
+    ```
+
+If you get an error about the tomcat server unable to start on port 8080
 
 ### Supported arguments
 
