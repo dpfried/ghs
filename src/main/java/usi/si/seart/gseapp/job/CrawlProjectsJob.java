@@ -28,6 +28,7 @@ import java.io.IOException;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.*;
+import java.text.SimpleDateFormat;
 
 @Service
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
@@ -40,15 +41,14 @@ public class CrawlProjectsJob {
     public boolean running = false;
     List<DateInterval> requestQueue = new ArrayList<>();
 
-    List<String> languages = new ArrayList<>();
+    //List<String> languages = new ArrayList<>();
+    List<String> languages = Arrays.asList(new String[]{"Python"});
 
-    @NonFinal
     // Temporary. Because I'm keep restarting server, but I don't care about
     // very new Java updates, but finishing all language at least once.
-    static String startingLanguage = "Python";
+    //@NonFinal
+    //static String startingLanguage = "Python";
 
-
-    ;
     SupportedLanguageRepository supportedLanguageRepository;
     GitRepoRepository gitRepoRepository;
 
@@ -75,23 +75,23 @@ public class CrawlProjectsJob {
 
     public void run() throws IOException, InterruptedException {
         this.running = true;
-        getLanguagesToMine();
+        //getLanguagesToMine();
 
         logger.info("New Crawling for all languages: " + languages);
-        Date endDate = Date.from(Instant.now().minus(Duration.ofHours(2)));
+        Date endDate = applicationPropertyService.getEndDateOverride() ? applicationPropertyService.getEndDateOverrideValue() : Date.from(Instant.now().minus(Duration.ofHours(2)));
 
         for (String language : languages) {
 
 //            if(language.equals("JavaScript"))
 //                continue; // Temporary
 
-            if (language.equals(startingLanguage))
-                startingLanguage = null;
-            else if (startingLanguage != null && !language.equals(startingLanguage))
-                continue;
+            // if (language.equals(startingLanguage))
+            //     startingLanguage = null;
+            // else if (startingLanguage != null && !language.equals(startingLanguage))
+            //     continue;
 
             this.requestQueue.clear();
-            Date startDate = crawlJobService.getCrawlDateByLanguage(language);
+            Date startDate = applicationPropertyService.getStartDateOverride() ? applicationPropertyService.getStartDateOverrideValue() : crawlJobService.getCrawlDateByLanguage(language);
             DateInterval interval;
 
             if (startDate != null) {

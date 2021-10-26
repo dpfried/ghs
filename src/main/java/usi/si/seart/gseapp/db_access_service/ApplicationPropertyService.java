@@ -9,4 +9,14 @@ public interface ApplicationPropertyService {
     void setScheduling(Long value);
     Date getStartDate();
     void setStartDate(Date value);
+
+    Boolean getStartDateOverride();
+    void setStartDateOverride(Boolean value);
+    Date getStartDateOverrideValue();
+    void setStartDateOverrideValue(Date value);
+
+    Boolean getEndDateOverride();
+    void setEndDateOverride(Boolean value);
+    Date getEndDateOverrideValue();
+    void setEndDateOverrideValue(Date value);
 }

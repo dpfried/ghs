@@ -74,11 +74,13 @@ $ mysql -u gseadmin -pLugano2020 gse < ./docker-compose/initdb/1-gse-db-schema.s
 ```
 
 ## 2. Setup Crawler
-To make Crawler work, you have to initialize `supported_language` and  `access_token`. For that, you have two options:
+To make Crawler work, you have to initialize `supported_language` and  `access_token`. To do that, edit `initialize_tokens_languages.sql`, adding your github API personal access token obtained using [these instructions](https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token). The API permissions I granted are `public_repo, read:discussion, read:org, read:repo_hook, repo:status, repo_deployment, security_events`; but it may work with a subset of these too.
 
-Edit initialize_tokens_languages.sql, adding your github API personal access token obtained using [these instructions](https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token).
+Then, run :
+```
+mysql -u gseadmin -pLugano2020 gse < initialize_tokens_languages.sql
+```
 
-The permissions I granted are `public_repo, read:discussion, read:org, read:repo_hook, repo:status, repo_deployment, security_events`; but it may work with a subset of these too.
    
 ## 3. Running the `application`
 

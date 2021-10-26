@@ -22,4 +22,16 @@ public class ApplicationPropertyServiceImpl implements ApplicationPropertyServic
 
     @Value("#{new java.text.SimpleDateFormat(\"yyyy-MM-dd'T'HH:mm:ss\").parse(\"${app.crawl.startdate}\")}")
     Date startDate;
+
+    @Value(value = "${app.crawl.startdate_override}")
+    Boolean startDateOverride;
+
+    @Value("#{new java.text.SimpleDateFormat(\"yyyy-MM-dd\").parse(\"${app.crawl.startdate_override_value}\")}")
+    Date startDateOverrideValue;
+
+    @Value(value = "${app.crawl.enddate_override}")
+    Boolean endDateOverride;
+
+    @Value("#{new java.text.SimpleDateFormat(\"yyyy-MM-dd\").parse(\"${app.crawl.enddate_override_value}\")}")
+    Date endDateOverrideValue;
 }
