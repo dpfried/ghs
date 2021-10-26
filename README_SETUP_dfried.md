@@ -17,19 +17,6 @@
 Install JDK:
 ```sudo apt-get install openjdk-11-jdk```
 
-Install mysql:
-
-```
-sudo apt install mysql-server
-sudo mysql_secure_installation
-sudo service mysql start
-```
-
-
-## 1. Setup MySQL
-
-For the project to work, one must first create the necessary user and DB table specified in the <code>application.properties</code>, and grant the user access and modification privileges to said DB table.
-
 Create ~/.my.cnf with the following:
 
 ```
@@ -38,28 +25,41 @@ default_time_zone = "+00:00"
 group_concat_max_len=10000
 ```
 
-Be sure to restart your MySQL service for the changes to take effect!
+Install mysql:
 
+### Option 1 (with root permissions)
 ```
-sudo service mysql stop
+sudo apt install mysql-server
+sudo mysql_secure_installation
 sudo service mysql start
 ```
 
-### Step 2/5: Create Database: `gse`
+### Option 2 (with conda; run this inside a conda env)
+```
+conda install -c conda-forge mysql-server mysql-client mysql
+mysqld --initialize-insecure --user=mysql --basedir=$CONDA_PREFIX/mysql --datadir=$CONDA_PREFIX/mysql/data
+mysqld --basedir=$CONDA_PREFIX/mysql --datadir=$CONDA_PREFIX/mysql/data
+```
+
+## 1. Setup MySQL
+
+For the project to work, one must first create the necessary user and DB table specified in the <code>application.properties</code>, and grant the user access and modification privileges to said DB table.
+
+### Step 1/3: Create Database: `gse`
 
 Create the database for the project by running:
 ```
-sudo mysql
+mysql -u root
 ```
 
-``` mysql
+```mysql
 CREATE DATABASE gse CHARACTER SET utf8 COLLATE utf8_bin;
 ```
 
-### Step 3/5: Create User: `gseadmin`
+### Step 2/3: Create User: `gseadmin`
 
 Create the user by running these two commands in sequence:  
-``` mysql
+```mysql
 CREATE USER 'gseadmin'@'%' identified by 'Lugano2020';
 GRANT ALL ON gse.* to 'gseadmin'@'%';
 ```
@@ -67,16 +67,11 @@ GRANT ALL ON gse.* to 'gseadmin'@'%';
 **Note**: The `gseadmin` user is only required for the flyway migrations, as well as for JPA to access the database.
 
 
-### Step 4/5: Create Tables
+### Step 3/3: Create Tables
 Create tables:
 ```shell
 $ mysql -u gseadmin -pLugano2020 gse < ./docker-compose/initdb/1-gse-db-schema.sql
 ```
-
-### Step 5/5: Populate Tables (Optional)
-Initialize the database with an existing dataset of mined repositories — or otherwise the Crawler will start from scratch.
-```shell
-$ mysql -u gseadmin -pLugano2020 gse < ./docker-compose/initdb/2-gse-db-data-***.sql
 
 ## 2. Setup Crawler
 To make Crawler work, you have to initialize `supported_language` and  `access_token`. For that, you have two options:

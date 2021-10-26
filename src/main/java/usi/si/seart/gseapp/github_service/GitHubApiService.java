@@ -85,7 +85,8 @@ public class GitHubApiService {
     public String fetchRepoInfo(String repoFullName) throws IOException, InterruptedException {
         Triple<Integer, Headers, String> response = makeAPICall(generateRepoURL(repoFullName));
         String bodyStr = response.getRight();
-        Thread.sleep(500);
+        // Thread.sleep(500);
+        Thread.sleep(100);
         return bodyStr;
     }
 
@@ -196,7 +197,7 @@ public class GitHubApiService {
         String url = String.format("%s?page=%d&per_page=100", generateLanguagesURL(repoFullName), page);
         Triple<Integer, Headers, String> response = makeAPICall(url);
         String responseStr = response.getRight();
-        Thread.sleep(1000);
+        Thread.sleep(100);
         return responseStr;
     }
 
