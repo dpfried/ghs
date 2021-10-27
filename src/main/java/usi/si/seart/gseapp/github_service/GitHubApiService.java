@@ -28,7 +28,8 @@ public class GitHubApiService {
 
     OkHttpClient client;
     // final static int MIN_STARS = 10;
-    final static int MIN_STARS = 0;
+    final static int MIN_STARS = 1;
+    final static int MAX_STARS = 1;
 
     final static long retrySleepPeriod_ms = 60000L;
     final static int maxRetryCount = 3;
@@ -62,9 +63,16 @@ public class GitHubApiService {
                                          Boolean crawl_updated_repos) throws IOException, InterruptedException
     {
         String language_encoded = URLEncoder.encode(language, StandardCharsets.UTF_8);
-        String url = Endpoints.SEARCH_REPOS.getUrl() + "?q=language:" + language_encoded +
-                (crawl_updated_repos ? "+pushed:" : "+created:") + interval +
-                "+fork:true+stars:>="+MIN_STARS+"+is:public&page=" + page + "&per_page=100";
+        String url;
+        if (MAX_STARS != -1) {
+          url = Endpoints.SEARCH_REPOS.getUrl() + "?q=language:" + language_encoded +
+            (crawl_updated_repos ? "+pushed:" : "+created:") + interval +
+            "+fork:true+stars:"+MIN_STARS+".."+MAX_STARS+"+is:public&page=" + page + "&per_page=100";
+        } else {
+          url = Endpoints.SEARCH_REPOS.getUrl() + "?q=language:" + language_encoded +
+            (crawl_updated_repos ? "+pushed:" : "+created:") + interval +
+            "+fork:true+stars:>="+MIN_STARS+"+is:public&page=" + page + "&per_page=100";
+        }
 
         // For debugging specific repository
 //        url = generateSearchRepo("XXXXX/YYYYY");
