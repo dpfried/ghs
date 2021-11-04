@@ -10,6 +10,8 @@ if __name__ == "__main__":
     parser.add_argument("--open_source", action="store_true")
     parser.add_argument("--language")
     parser.add_argument("--limit", type=int)
+    parser.add_argument("--updated_start_year", type=int)
+    parser.add_argument("--updated_end_year", type=int)
 
     args = parser.parse_args()
 
@@ -20,10 +22,15 @@ if __name__ == "__main__":
         filter_clauses.append("(license='MIT License' or license='Apache License 2.0' or license like 'BSD 3-%' or license like 'BSD 2-%')")
     if args.language is not None:
         filter_clauses.append(f"main_language='{args.language}'")
+    if args.updated_start_year:
+        filter_clauses.append(f"pushed_at >= '{args.updated_start_year}-01-01 00:00:00'")
+    if args.updated_end_year:
+        filter_clauses.append(f"pushed_at <= '{args.updated_end_year}-12-31 23:59:59'")
     if filter_clauses:
         filter_str = f' WHERE {" AND ".join(filter_clauses)} '
     else:
         filter_str = ''
+
 
     limit_str = ' LIMIT {args.limit} ' if args.limit is not None else ''
 
