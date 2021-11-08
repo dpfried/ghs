@@ -28,8 +28,10 @@ public class GitHubApiService {
 
     OkHttpClient client;
     // final static int MIN_STARS = 10;
-    final static int MIN_STARS = 1;
-    final static int MAX_STARS = 1;
+    final static int MIN_STARS = 0;
+    final static int MAX_STARS = 0;
+
+    final static int MIN_SIZE = 20000;
 
     final static long retrySleepPeriod_ms = 60000L;
     final static int maxRetryCount = 3;
@@ -64,14 +66,18 @@ public class GitHubApiService {
     {
         String language_encoded = URLEncoder.encode(language, StandardCharsets.UTF_8);
         String url;
+        String size_string = "";
+        if (MIN_SIZE >= 0) {
+          size_string = "+size:>=" + MIN_SIZE;
+        }
         if (MAX_STARS != -1) {
           url = Endpoints.SEARCH_REPOS.getUrl() + "?q=language:" + language_encoded +
             (crawl_updated_repos ? "+pushed:" : "+created:") + interval +
-            "+fork:true+stars:"+MIN_STARS+".."+MAX_STARS+"+is:public&page=" + page + "&per_page=100";
+            "+fork:true+stars:"+MIN_STARS+".."+MAX_STARS+"+is:public"+size_string+"&page=" + page + "&per_page=100";
         } else {
           url = Endpoints.SEARCH_REPOS.getUrl() + "?q=language:" + language_encoded +
             (crawl_updated_repos ? "+pushed:" : "+created:") + interval +
-            "+fork:true+stars:>="+MIN_STARS+"+is:public&page=" + page + "&per_page=100";
+            "+fork:true+stars:>="+MIN_STARS+"+is:public"+size_string+"&page=" + page + "&per_page=100";
         }
 
         // For debugging specific repository
