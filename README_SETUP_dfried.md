@@ -29,6 +29,7 @@ Install mysql:
 ### Option 1 (with conda; run this inside a conda env)
 ```
 conda install -c conda-forge mysql-server mysql-client mysql
+conda install mysql-connector-python
 mysqld --initialize-insecure --user=mysql --basedir=$CONDA_PREFIX/mysql --datadir=$CONDA_PREFIX/mysql/data
 mysqld --basedir=$CONDA_PREFIX/mysql --datadir=$CONDA_PREFIX/mysql/data
 ```
