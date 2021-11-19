@@ -42,7 +42,9 @@ public class CrawlProjectsJob {
     List<DateInterval> requestQueue = new ArrayList<>();
 
     //List<String> languages = new ArrayList<>();
-    List<String> languages = Arrays.asList(new String[]{"Python"});
+    //List<String> languages = Arrays.asList(new String[]{"Python"});
+    //List<String> languages = Arrays.asList(new String[]{"Jupyter Notebook"});
+    List<String> languages = Arrays.asList(new String[]{"\"Jupyter Notebook\""});
 
     // Temporary. Because I'm keep restarting server, but I don't care about
     // very new Java updates, but finishing all language at least once.
@@ -192,6 +194,8 @@ public class CrawlProjectsJob {
      */
     private void saveRetrievedRepos(JsonArray results, String language, int repo_num_start, int repo_num_total) {
         logger.info("Adding: " + results.size() + " repositories (" + repo_num_start + "-" + (repo_num_start + results.size() - 1) + " | total: " + repo_num_total + ")");
+        language = language.replace("\"", "");
+
         for (JsonElement element : results) {
             JsonObject repoJson = element.getAsJsonObject();
 
@@ -234,6 +238,7 @@ public class CrawlProjectsJob {
                         // This can happen. Example Repo: https://api.github.com/search/repositories?q=baranowski/habit-vim
                         // And if you go to repo homepage or repo "language_url" (api that shows language distribution),
                         // you will see that main_language is only wrong in the above link.
+                        // repo_language = result.get("language").getAsString().equals(language)
                         logger.warn("**** Mismatch language: searched-for: " + language + " | repo: " + repoJson.get("language").getAsString());
                         result.addProperty("language", language);
                     }

@@ -28,10 +28,12 @@ public class GitHubApiService {
 
     OkHttpClient client;
     // final static int MIN_STARS = 10;
-    final static int MIN_STARS = 0;
-    final static int MAX_STARS = 0;
+    final static int MIN_STARS = 1;
+    // final static int MAX_STARS = 0;
+    final static int MAX_STARS = -1;
 
-    final static int MIN_SIZE = 20000;
+    //final static int MIN_SIZE = 20000;
+    final static int MIN_SIZE = -1;
 
     final static long retrySleepPeriod_ms = 60000L;
     final static int maxRetryCount = 3;
@@ -64,7 +66,8 @@ public class GitHubApiService {
     public String searchRepositories(String language, DateInterval interval, Integer page,
                                          Boolean crawl_updated_repos) throws IOException, InterruptedException
     {
-        String language_encoded = URLEncoder.encode(language, StandardCharsets.UTF_8);
+        //String language_encoded = URLEncoder.encode(language, StandardCharsets.UTF_8);
+        String language_encoded = language;
         String url;
         String size_string = "";
         if (MIN_SIZE >= 0) {
