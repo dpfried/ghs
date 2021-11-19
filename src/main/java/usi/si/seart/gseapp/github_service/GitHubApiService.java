@@ -28,12 +28,12 @@ public class GitHubApiService {
 
     OkHttpClient client;
     // final static int MIN_STARS = 10;
-    final static int MIN_STARS = 1;
+    final static int MIN_STARS = 0;
     // final static int MAX_STARS = 0;
     final static int MAX_STARS = -1;
 
-    //final static int MIN_SIZE = 20000;
-    final static int MIN_SIZE = -1;
+    final static int MIN_SIZE = 20000;
+    //final static int MIN_SIZE = -1;
 
     final static long retrySleepPeriod_ms = 60000L;
     final static int maxRetryCount = 3;

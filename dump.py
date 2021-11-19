@@ -12,6 +12,8 @@ if __name__ == "__main__":
     parser.add_argument("--limit", type=int)
     parser.add_argument("--updated_start_year", type=int)
     parser.add_argument("--updated_end_year", type=int)
+    parser.add_argument("--min_stars", type=int)
+    parser.add_argument("--max_stars", type=int)
 
     args = parser.parse_args()
 
@@ -26,6 +28,10 @@ if __name__ == "__main__":
         filter_clauses.append(f"pushed_at >= '{args.updated_start_year}-01-01 00:00:00'")
     if args.updated_end_year:
         filter_clauses.append(f"pushed_at <= '{args.updated_end_year}-12-31 23:59:59'")
+    if args.min_stars:
+        filter_clauses.append(f"stargazers >= {args.min_stars}")
+    if args.max_stars:
+        filter_clauses.append(f"stargazers >= {args.max_stars}")
     if filter_clauses:
         filter_str = f' WHERE {" AND ".join(filter_clauses)} '
     else:

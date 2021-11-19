@@ -42,9 +42,9 @@ public class CrawlProjectsJob {
     List<DateInterval> requestQueue = new ArrayList<>();
 
     //List<String> languages = new ArrayList<>();
-    //List<String> languages = Arrays.asList(new String[]{"Python"});
+    List<String> languages = Arrays.asList(new String[]{"Python"});
     //List<String> languages = Arrays.asList(new String[]{"Jupyter Notebook"});
-    List<String> languages = Arrays.asList(new String[]{"\"Jupyter Notebook\""});
+    //List<String> languages = Arrays.asList(new String[]{"\"Jupyter Notebook\""});
 
     // Temporary. Because I'm keep restarting server, but I don't care about
     // very new Java updates, but finishing all language at least once.
