@@ -28,10 +28,10 @@ if __name__ == "__main__":
         filter_clauses.append(f"pushed_at >= '{args.updated_start_year}-01-01 00:00:00'")
     if args.updated_end_year:
         filter_clauses.append(f"pushed_at <= '{args.updated_end_year}-12-31 23:59:59'")
-    if args.min_stars:
+    if args.min_stars is not None:
         filter_clauses.append(f"stargazers >= {args.min_stars}")
-    if args.max_stars:
-        filter_clauses.append(f"stargazers >= {args.max_stars}")
+    if args.max_stars is not None:
+        filter_clauses.append(f"stargazers <= {args.max_stars}")
     if filter_clauses:
         filter_str = f' WHERE {" AND ".join(filter_clauses)} '
     else:
